@@ -332,11 +332,13 @@ p { margin: 0 0 var(--space-3); }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  min-height: clamp(560px, 88vh, 780px);
+  min-height: clamp(520px, 78vh, 720px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   background: #000;
+  text-align: center;
 }
 .hero-video {
   position: absolute; inset: 0;
@@ -348,36 +350,58 @@ p { margin: 0 0 var(--space-3); }
   position: absolute; inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse 90% 75% at 22% 92%, rgba(6,9,13,0.95) 0%, rgba(10,14,19,0.7) 35%, rgba(10,14,19,0.25) 65%, transparent 80%),
-    linear-gradient(180deg, rgba(10,14,19,0.30) 0%, rgba(10,14,19,0.10) 25%, rgba(10,14,19,0.65) 75%, rgba(10,14,19,0.98) 100%),
-    linear-gradient(90deg, rgba(10,14,19,0.55) 0%, rgba(10,14,19,0.10) 55%, transparent 100%),
-    radial-gradient(ellipse 110% 90% at 50% 50%, transparent 50%, rgba(0,0,0,0.55) 100%);
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(6,9,13,0.85) 0%, rgba(10,14,19,0.5) 40%, rgba(10,14,19,0.15) 70%, transparent 90%),
+    linear-gradient(180deg, rgba(10,14,19,0.35) 0%, rgba(10,14,19,0.15) 50%, rgba(10,14,19,0.5) 100%),
+    radial-gradient(ellipse 110% 90% at 50% 50%, transparent 55%, rgba(0,0,0,0.55) 100%);
 }
 .hero-content {
   position: relative; z-index: 2;
-  padding-block: var(--space-7) var(--space-4);
-  max-width: 640px;
+  padding-block: var(--space-6);
+  max-width: 880px;
+  margin-inline: auto;
 }
 .hero h1 {
   color: #fff;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.45);
-  font-size: clamp(1.875rem, 3.6vw, 2.875rem);
-  margin-bottom: var(--space-3);
-}
-.hero-sub {
-  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
-  color: rgba(236, 239, 244, 0.92);
-  max-width: 540px;
-  margin-block: 0 var(--space-4);
-  line-height: 1.55;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.55);
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  margin-bottom: 0;
 }
 .hero .eyebrow {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--c-brand-bright);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  margin-bottom: var(--space-3);
 }
-.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ---------- Hero lead (intro band beneath hero) ---------- */
+.hero-lead {
+  background:
+    linear-gradient(180deg, rgba(91,167,204,0.05) 0%, transparent 100%),
+    var(--c-bg-elevated);
+  border-bottom: 1px solid var(--c-border);
+  padding-block: var(--space-6);
+}
+.hero-lead-inner {
+  display: grid;
+  grid-template-columns: 1.4fr auto;
+  gap: var(--space-6);
+  align-items: center;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+.hero-lead-copy {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  color: var(--c-text);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 640px;
+}
+.hero-lead-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
 
 /* ---------- Project type chip strip ---------- */
 .project-types {
@@ -735,6 +759,9 @@ p { margin: 0 0 var(--space-3); }
   .project-wide { grid-column: span 2; }
   .project-tall { grid-row: span 1; }
   .orders-image { aspect-ratio: 16 / 10; max-height: 360px; }
+  .hero-lead-inner { grid-template-columns: 1fr; gap: var(--space-4); text-align: center; }
+  .hero-lead-copy { max-width: none; }
+  .hero-lead-cta { justify-content: center; }
 }
 
 @media (max-width: 760px) {
