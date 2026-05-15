@@ -196,8 +196,8 @@ p { margin: 0 0 var(--space-3); }
 .mega-panel-inner {
   display: grid;
   grid-template-columns: 0.9fr 1.6fr;
-  gap: var(--space-7);
-  padding-block: var(--space-6);
+  gap: var(--space-6);
+  padding-block: var(--space-5);
 }
 .mega-col-feature { display: flex; flex-direction: column; gap: var(--space-2); border-right: 1px solid var(--c-border); padding-right: var(--space-5); }
 .mega-eyebrow {
@@ -410,8 +410,9 @@ p { margin: 0 0 var(--space-3); }
 .trust-sub { color: var(--c-text-muted); margin: 0; }
 
 /* ---------- Reviews (Elfsight Google Reviews widget) ---------- */
-.reviews { padding-block: var(--space-8); background: var(--c-bg); }
-.reviews .elfsight-app-78897870-15c6-406e-ab78-a98d722f8e98 { min-height: 320px; }
+.reviews { padding-block: var(--space-5); background: var(--c-bg); }
+.reviews .elfsight-app-78897870-15c6-406e-ab78-a98d722f8e98 { min-height: 0; }
+.reviews .elfsight-app-78897870-15c6-406e-ab78-a98d722f8e98:empty { display: none; }
 
 /* ---------- Services ---------- */
 .services { padding-block: var(--space-8); }
