@@ -1,5 +1,44 @@
 (() => {
 
+  // ---------- Hide header on scroll down, reveal on scroll up ----------
+  const header = document.querySelector('.site-header');
+  if (header) {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const SHOW_THRESHOLD = 80;       // always show within first 80px of page
+    const DELTA = 6;                 // ignore micro-scrolls
+    const closeAllMenus = () => {
+      document.querySelectorAll('.mega-item .mega-trigger[aria-expanded="true"]').forEach((t) => {
+        t.setAttribute('aria-expanded', 'false');
+        const panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) panel.hidden = true;
+      });
+    };
+    const onScroll = () => {
+      const y = window.scrollY;
+      const goingDown = y > lastY + DELTA;
+      const goingUp = y < lastY - DELTA;
+      if (y < SHOW_THRESHOLD) {
+        header.classList.remove('is-hidden');
+      } else if (goingDown) {
+        if (!header.classList.contains('is-hidden')) {
+          header.classList.add('is-hidden');
+          closeAllMenus();
+        }
+      } else if (goingUp) {
+        header.classList.remove('is-hidden');
+      }
+      if (goingDown || goingUp) lastY = y;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
   // ---------- Mobile nav toggle ----------
   const toggle = document.querySelector('.nav-toggle');
   const menu = document.getElementById('mobile-menu');

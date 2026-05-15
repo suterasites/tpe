@@ -125,7 +125,10 @@ p { margin: 0 0 var(--space-3); }
   backdrop-filter: saturate(140%) blur(10px);
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid var(--c-border);
+  transition: transform 280ms var(--ease-out);
+  will-change: transform;
 }
+.site-header.is-hidden { transform: translateY(-100%); }
 .header-inner {
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-4);
