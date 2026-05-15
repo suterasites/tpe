@@ -225,24 +225,29 @@ p { margin: 0 0 var(--space-3); }
   gap: var(--space-2);
   align-content: start;
 }
-.mega-link {
+.primary-nav .mega-link {
   display: grid;
   gap: 4px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
+  border-left: 2px solid var(--c-border);
   background: transparent;
   text-transform: none;
   letter-spacing: normal;
   font-weight: 400;
   font-family: inherit;
-  transition: background 200ms var(--ease-out), border-color 200ms var(--ease-out);
+  font-size: inherit;
+  align-items: stretch;
+  text-align: left;
+  transition: background 200ms var(--ease-out), border-left-color 200ms var(--ease-out);
 }
-.mega-link:hover {
+.primary-nav .mega-link:hover {
   background: var(--c-bg-card);
-  border-color: var(--c-border);
+  border-left-color: var(--c-brand);
 }
-.mega-link-title {
+.primary-nav .mega-link-title {
+  display: block;
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;
   font-size: 1.0625rem;
@@ -251,12 +256,16 @@ p { margin: 0 0 var(--space-3); }
   color: var(--c-text);
   line-height: 1.2;
 }
-.mega-link-sub {
+.primary-nav .mega-link-sub {
+  display: block;
   font-size: 0.875rem;
   color: var(--c-text-muted);
   line-height: 1.45;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: 'Inter', system-ui, sans-serif;
 }
-.mega-link:hover .mega-link-title { color: var(--c-brand-bright); }
+.primary-nav .mega-link:hover .mega-link-title { color: var(--c-brand-bright); }
 
 .nav-toggle {
   display: none;
@@ -408,11 +417,6 @@ p { margin: 0 0 var(--space-3); }
 .trust-copy { text-align: center; max-width: 540px; }
 .trust-headline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; margin: 0 0 var(--space-2); color: var(--c-text); }
 .trust-sub { color: var(--c-text-muted); margin: 0; }
-
-/* ---------- Reviews (Elfsight Google Reviews widget) ---------- */
-.reviews { padding-block: var(--space-5); background: var(--c-bg); }
-.reviews .elfsight-app-78897870-15c6-406e-ab78-a98d722f8e98 { min-height: 0; }
-.reviews .elfsight-app-78897870-15c6-406e-ab78-a98d722f8e98:empty { display: none; }
 
 /* ---------- Services ---------- */
 .services { padding-block: var(--space-8); }
