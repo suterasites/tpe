@@ -919,13 +919,14 @@ p { margin: 0 0 var(--space-3); }
 .footer-bottom .footer-credit a:hover { color: var(--c-brand-bright); border-bottom-color: var(--c-brand); }
 
 /* ---------- Page hero (interior pages) ---------- */
+/* Each page sets --page-hero-bg inline to swap the cover image; falls back to the CBD shot. */
 .page-hero {
   position: relative;
   padding-block: var(--space-8) var(--space-7);
   background:
     linear-gradient(180deg, rgba(10,14,19,0.72) 0%, rgba(10,14,19,0.58) 45%, rgba(10,14,19,0.85) 100%),
     radial-gradient(ellipse 110% 95% at 50% 50%, transparent 55%, rgba(0,0,0,0.45) 100%),
-    url('assets/projects/screw-piling-melbourne-cbd.jpg') center / cover no-repeat;
+    var(--page-hero-bg, url('/assets/projects/screw-piling-melbourne-cbd.jpg')) center / cover no-repeat;
   background-color: var(--c-bg);
   border-bottom: 1px solid var(--c-border);
 }
@@ -975,6 +976,51 @@ p { margin: 0 0 var(--space-3); }
 .breadcrumbs a { color: var(--c-text-muted); }
 .breadcrumbs a:hover { color: var(--c-brand-bright); }
 .breadcrumbs [aria-current="page"] { color: var(--c-text); }
+
+/* ---------- Content split (interior pages, 2-col narrative + image) ---------- */
+.content-split {
+  padding-block: var(--space-8);
+  background: var(--c-bg-elevated);
+  border-block: 1px solid var(--c-border);
+}
+.content-split-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--space-6);
+  align-items: center;
+}
+.content-split-grid.reverse { grid-template-columns: 1fr 1.05fr; }
+.content-split-grid.reverse .content-split-media { order: 2; }
+.content-split-copy h2 { max-width: 540px; }
+.content-split-copy p { color: var(--c-text-muted); font-size: 1.0625rem; }
+.content-split-media {
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 5 / 4;
+  box-shadow: var(--shadow-lg);
+}
+.content-split-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Use-case card grid (interior service pages) ---------- */
+.usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+.usecase-card {
+  background: var(--c-bg-card);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  transition: border-color 250ms var(--ease-out), transform 250ms var(--ease-out);
+}
+.usecase-card:hover { border-color: var(--c-brand-deep); transform: translateY(-2px); }
+.usecase-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-2);
+  color: var(--c-text);
+}
+.usecase-card p { color: var(--c-text-muted); font-size: 0.9375rem; margin: 0; line-height: 1.55; }
 
 /* ---------- Services (interior layout extensions) ---------- */
 .services-alt {
@@ -1132,6 +1178,10 @@ p { margin: 0 0 var(--space-3); }
   .cta-band-copy h2, .cta-band-copy p { max-width: none; }
   .cta-band-actions { justify-content: center; }
   .service-detail-row { grid-template-columns: 1fr; gap: 4px; }
+  .content-split-grid, .content-split-grid.reverse { grid-template-columns: 1fr; }
+  .content-split-grid.reverse .content-split-media { order: 0; }
+  .content-split-media { aspect-ratio: 16 / 10; }
+  .usecase-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 760px) {
@@ -1152,6 +1202,7 @@ p { margin: 0 0 var(--space-3); }
   .page-hero { padding-block: var(--space-6) var(--space-5); }
   .process-steps { grid-template-columns: 1fr; }
   .capability-grid { grid-template-columns: 1fr; }
+  .usecase-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
