@@ -921,23 +921,28 @@ p { margin: 0 0 var(--space-3); }
 /* ---------- Page hero (interior pages) ---------- */
 .page-hero {
   position: relative;
-  padding-block: var(--space-7) var(--space-6);
+  padding-block: var(--space-8) var(--space-7);
   background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,167,204,0.10) 0%, transparent 70%),
-    linear-gradient(180deg, var(--c-bg-elevated) 0%, var(--c-bg) 100%);
+    linear-gradient(180deg, rgba(10,14,19,0.72) 0%, rgba(10,14,19,0.58) 45%, rgba(10,14,19,0.85) 100%),
+    radial-gradient(ellipse 110% 95% at 50% 50%, transparent 55%, rgba(0,0,0,0.45) 100%),
+    url('assets/projects/screw-piling-melbourne-cbd.jpg') center / cover no-repeat;
+  background-color: var(--c-bg);
   border-bottom: 1px solid var(--c-border);
 }
-.page-hero-inner { max-width: 880px; margin-inline: auto; text-align: center; }
+.page-hero-inner { max-width: 880px; margin-inline: auto; text-align: center; position: relative; z-index: 1; }
 .page-hero h1 {
   font-size: clamp(2.25rem, 5vw, 4rem);
   margin-bottom: var(--space-3);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.55);
+  color: #fff;
 }
 .page-hero-lead {
   font-size: clamp(1rem, 1.2vw, 1.125rem);
-  color: var(--c-text-muted);
+  color: var(--c-text);
   line-height: 1.6;
   max-width: 680px;
   margin: 0 auto var(--space-5);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.55);
 }
 .page-hero-cta {
   display: flex;
