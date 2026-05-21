@@ -144,4 +144,103 @@
     if (!openItem.contains(e.target)) closeAll();
   });
 
+  // ---------- Lightbox (project gallery) ----------
+  const tileLinks = Array.from(document.querySelectorAll('.project-gallery .tile-link'));
+  if (tileLinks.length) {
+    const items = tileLinks.map((link) => {
+      const fig = link.closest('figure');
+      const caption = fig && fig.querySelector('figcaption');
+      return {
+        href: link.getAttribute('href'),
+        caption: caption ? caption.textContent.trim() : '',
+      };
+    });
+
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Project image viewer');
+    lb.hidden = true;
+    lb.innerHTML = `
+      <button type="button" class="lightbox-btn lightbox-close" aria-label="Close image viewer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <button type="button" class="lightbox-btn lightbox-prev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button type="button" class="lightbox-btn lightbox-next" aria-label="Next image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="lightbox-stage">
+        <img class="lightbox-image" alt="">
+        <p class="lightbox-caption"></p>
+        <p class="lightbox-counter"></p>
+      </div>
+    `;
+    document.body.appendChild(lb);
+
+    const lbImage = lb.querySelector('.lightbox-image');
+    const lbCaption = lb.querySelector('.lightbox-caption');
+    const lbCounter = lb.querySelector('.lightbox-counter');
+    const lbClose = lb.querySelector('.lightbox-close');
+    const lbPrev = lb.querySelector('.lightbox-prev');
+    const lbNext = lb.querySelector('.lightbox-next');
+
+    let currentIndex = -1;
+    let lastTrigger = null;
+
+    const renderItem = (index) => {
+      const item = items[index];
+      if (!item) return;
+      lbImage.src = item.href;
+      lbImage.alt = item.caption;
+      lbCaption.textContent = item.caption;
+      lbCounter.textContent = `${index + 1} / ${items.length}`;
+      currentIndex = index;
+    };
+
+    const openAt = (index, trigger) => {
+      lastTrigger = trigger || null;
+      lb.hidden = false;
+      requestAnimationFrame(() => lb.classList.add('is-open'));
+      document.body.classList.add('lightbox-open');
+      renderItem(index);
+      lbClose.focus();
+    };
+
+    const closeLb = () => {
+      lb.classList.remove('is-open');
+      document.body.classList.remove('lightbox-open');
+      setTimeout(() => { lb.hidden = true; }, 200);
+      if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+    };
+
+    const step = (delta) => {
+      const next = (currentIndex + delta + items.length) % items.length;
+      renderItem(next);
+    };
+
+    tileLinks.forEach((link, i) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openAt(i, link);
+      });
+    });
+
+    lbClose.addEventListener('click', closeLb);
+    lbPrev.addEventListener('click', () => step(-1));
+    lbNext.addEventListener('click', () => step(1));
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLb();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); closeLb(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    });
+  }
+
 })();
