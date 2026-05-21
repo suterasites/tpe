@@ -1195,12 +1195,15 @@ body.lightbox-open { overflow: hidden; }
 .process-step a { color: var(--c-brand-bright); }
 .process-step a:hover { color: var(--c-text); }
 
-/* ---------- Capability band ---------- */
+/* ---------- Capability band (white with blue hints) ---------- */
 .capability-band {
   padding-block: var(--space-7);
-  background: var(--c-bg-elevated);
-  border-block: 1px solid var(--c-border);
+  background: #ffffff;
+  border-block: 1px solid #DBE7EE;
 }
+.capability-band .section-head .eyebrow { color: var(--c-brand-deep); }
+.capability-band .section-head h2 { color: #0A1620; }
+.capability-band .section-head .section-sub { color: #4A5763; }
 .capability-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1216,7 +1219,7 @@ body.lightbox-open { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.8125rem;
-  color: var(--c-brand);
+  color: var(--c-brand-deep);
   margin: 0 0 var(--space-2);
 }
 .capability-value {
@@ -1225,11 +1228,11 @@ body.lightbox-open { overflow: hidden; }
   text-transform: uppercase;
   letter-spacing: 0.02em;
   font-size: clamp(1.5rem, 2.2vw, 2rem);
-  color: var(--c-text);
+  color: #0A1620;
   margin: 0 0 var(--space-2);
   line-height: 1.05;
 }
-.capability-sub { color: var(--c-text-muted); font-size: 0.9375rem; margin: 0; }
+.capability-sub { color: #3B4A57; font-size: 0.9375rem; margin: 0; }
 
 /* ---------- CTA band ---------- */
 .cta-band {
