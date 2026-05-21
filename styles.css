@@ -951,7 +951,7 @@ body.lightbox-open { overflow: hidden; }
 .form-fineprint { color: var(--c-text-faint); font-size: 0.8125rem; margin: 0; text-align: center; }
 
 /* ---------- Footer ---------- */
-.site-footer { background: #06090D; border-top: 1px solid var(--c-border); padding-block: var(--space-7) var(--space-4); margin-top: var(--space-7); }
+.site-footer { background: #000; border-top: 1px solid var(--c-border); padding-block: var(--space-7) var(--space-4); margin-top: var(--space-7); }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr; gap: var(--space-5); padding-bottom: var(--space-5); border-bottom: 1px solid var(--c-border); }
 .footer-brand p { color: var(--c-text-muted); margin-top: var(--space-3); max-width: 360px; }
 .footer-logo { height: 40px; width: auto; }
