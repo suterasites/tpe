@@ -144,8 +144,52 @@
     if (!openItem.contains(e.target)) closeAll();
   });
 
+  // ---------- Project slideshow ----------
+  document.querySelectorAll('[data-slideshow]').forEach((root) => {
+    const slides = Array.from(root.querySelectorAll('.slide'));
+    if (slides.length < 2) return;
+    const prevBtn = root.querySelector('.slideshow-prev');
+    const nextBtn = root.querySelector('.slideshow-next');
+    const dotsWrap = root.querySelector('.slideshow-dots');
+    const interval = parseInt(root.getAttribute('data-interval'), 10) || 4500;
+    let current = slides.findIndex((s) => s.classList.contains('is-active'));
+    if (current < 0) current = 0;
+    let timer = null;
+
+    const dots = slides.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      if (i === current) b.classList.add('is-active');
+      b.addEventListener('click', () => { go(i); restart(); });
+      dotsWrap && dotsWrap.appendChild(b);
+      return b;
+    });
+
+    const go = (i) => {
+      const next = (i + slides.length) % slides.length;
+      slides[current].classList.remove('is-active');
+      dots[current] && dots[current].classList.remove('is-active');
+      slides[next].classList.add('is-active');
+      dots[next] && dots[next].classList.add('is-active');
+      current = next;
+    };
+
+    const start = () => { timer = setInterval(() => go(current + 1), interval); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    const restart = () => { stop(); start(); };
+
+    prevBtn && prevBtn.addEventListener('click', () => { go(current - 1); restart(); });
+    nextBtn && nextBtn.addEventListener('click', () => { go(current + 1); restart(); });
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+
+    start();
+  });
+
   // ---------- Lightbox (project gallery) ----------
-  const tileLinks = Array.from(document.querySelectorAll('.project-gallery .tile-link'));
+  const tileLinks = Array.from(document.querySelectorAll('.project-gallery .tile-link, .project-slideshow .tile-link'));
   if (tileLinks.length) {
     const items = tileLinks.map((link) => {
       const fig = link.closest('figure');
