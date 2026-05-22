@@ -718,6 +718,21 @@ p { margin: 0 0 var(--space-3); }
   background: #fff;
   transform: scale(1.2);
 }
+.slideshow-counter {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 4;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
 
 /* ---------- Lightbox ---------- */
 body.lightbox-open { overflow: hidden; }

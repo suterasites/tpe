@@ -151,20 +151,26 @@
     const prevBtn = root.querySelector('.slideshow-prev');
     const nextBtn = root.querySelector('.slideshow-next');
     const dotsWrap = root.querySelector('.slideshow-dots');
+    const counter = root.querySelector('[data-slideshow-counter]');
     const interval = parseInt(root.getAttribute('data-interval'), 10) || 4500;
     let current = slides.findIndex((s) => s.classList.contains('is-active'));
     if (current < 0) current = 0;
     let timer = null;
 
-    const dots = slides.map((_, i) => {
+    const dots = dotsWrap ? slides.map((_, i) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.setAttribute('aria-label', `Go to slide ${i + 1}`);
       if (i === current) b.classList.add('is-active');
       b.addEventListener('click', () => { go(i); restart(); });
-      dotsWrap && dotsWrap.appendChild(b);
+      dotsWrap.appendChild(b);
       return b;
-    });
+    }) : [];
+
+    const updateCounter = () => {
+      if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
+    };
+    updateCounter();
 
     const go = (i) => {
       const next = (i + slides.length) % slides.length;
@@ -173,6 +179,7 @@
       slides[next].classList.add('is-active');
       dots[next] && dots[next].classList.add('is-active');
       current = next;
+      updateCounter();
     };
 
     const start = () => { timer = setInterval(() => go(current + 1), interval); };
@@ -186,33 +193,6 @@
     root.addEventListener('mouseleave', start);
 
     start();
-  });
-
-  // ---------- Gallery load-more ----------
-  document.querySelectorAll('[data-gallery-loadmore]').forEach((gallery) => {
-    const batch = parseInt(gallery.getAttribute('data-batch'), 10) || 12;
-    const btnWrap = gallery.parentElement.querySelector('.gallery-loadmore-cta');
-    const btn = btnWrap && btnWrap.querySelector('[data-loadmore-btn]');
-    const countEl = btn && btn.querySelector('[data-loadmore-count]');
-    if (!btn) return;
-
-    const update = () => {
-      const remaining = gallery.querySelectorAll('.project-tile[hidden]').length;
-      if (remaining === 0) {
-        btnWrap.style.display = 'none';
-      } else if (countEl) {
-        const next = Math.min(batch, remaining);
-        countEl.textContent = `(${next} of ${remaining})`;
-      }
-    };
-
-    btn.addEventListener('click', () => {
-      const hiddenTiles = gallery.querySelectorAll('.project-tile[hidden]');
-      Array.from(hiddenTiles).slice(0, batch).forEach((t) => t.removeAttribute('hidden'));
-      update();
-    });
-
-    update();
   });
 
   // ---------- Lightbox (project gallery) ----------
